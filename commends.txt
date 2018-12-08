@@ -1,0 +1,8 @@
+git config --global user.name "자신의 닉네임"
+git config --global user.email "자신의 이메일"  //깃 최초 시그니처 생성
+git config --global core.editor vim // 깃 편집기 변경
+git add "file name" // add some file to be added to rep
+git commit // commit changes on added files
+git log // see logs
+
+
