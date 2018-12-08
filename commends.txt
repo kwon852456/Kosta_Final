@@ -5,4 +5,10 @@ git add "file name" // add some file to be added to rep
 git commit // commit changes on added files
 git log // see logs
 
+git log -p // see details between commited version
+git log 'commit id' // see previous contents untill commit content of id
+git diff 'commit id'..'commit id' // see changes between commits
+git diff // see changes between previous staged file and contemporary file
 
+
+ 
