@@ -10,5 +10,9 @@ git log 'commit id' // see previous contents untill commit content of id
 git diff 'commit id'..'commit id' // see changes between commits
 git diff // see changes between previous staged file and contemporary file
 
-
- 
+git branch
+git branch "새로운 브랜치 이름"
+git branch -d
+git branch -D
+git checkout "전환하려는 브랜치 이름"
+git checkout -b "생성하고 전환할 브랜치 이름" 
