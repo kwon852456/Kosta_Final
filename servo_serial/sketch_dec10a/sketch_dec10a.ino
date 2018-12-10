@@ -4,7 +4,7 @@ Servo myservo;  // create servo object to control a servo
 // twelve servo objects can be created on most boards
 
 int pos = 90;    // variable to store the servo position
-int inByte;
+char inByte;
 
 void setup() {
   // put your setup code here, to run once:
@@ -19,16 +19,16 @@ void loop() {
   // put your main code here, to run repeatedly:
   if (Serial.available() > 0) {
     // get incoming byte:
-    inByte = Serial.parseInt();
+    inByte = Serial.read();
     Serial.print(inByte);
-    if (inByte == 1){
+    if (inByte == '1'){
       pos += 5;
     }else{
       pos -= 5;
     }
     myservo.write(pos);
-    
-    delay(15);
+
+    Serial.flush();
     
   }
 
