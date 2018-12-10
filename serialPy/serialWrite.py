@@ -11,7 +11,7 @@ se = serial.Serial(port,baudrate)
 while True:	
         print("input num:")
         #  var = input()
-        num = '2'
+        num = '1'
         se.write(num.encode())
         #  se.write(var.encode())
         se.flush()

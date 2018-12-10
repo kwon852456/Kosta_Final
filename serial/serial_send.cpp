@@ -44,18 +44,21 @@ int main( void)
     tcsetattr(fd, TCSANOW, &newtio );
  
 sleep(3);
- 
+int x = 0 ;
 while(1) {
  
-        write(fd, "1", 10);
+        write(fd, "2", 10); // 1 : turn cam to left 2: turn cam to right based on servo
         // i = read(fd,buf,BUF_MAX);
         // buf[i] = '\0';
         // printf("%s",buf);
 	cout << " while()...." << endl;
-        sleep(100000);
+        sleep(1);
         }
-        close( fd);
-        return 0;
+        // close( fd);
+	x++;
+		if(x > 100){
+        		return 0;
+		}
 }
 
 
