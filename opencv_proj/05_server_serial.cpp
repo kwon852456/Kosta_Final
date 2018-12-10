@@ -25,10 +25,11 @@ int main(int argc, char **argv)
     char buffer[128];
     socklen_t addrlen = sizeof(cliaddr);
 
-    int fd,i=0;
+    int fd=0;
+    // int i = 0;
  
-    char buf[BUF_MAX];
-    char tmp, read_byte=0;
+    // char buf[BUF_MAX];
+    // char tmp, read_byte=0;
  
     struct termios newtio;
  
@@ -69,14 +70,13 @@ int main(int argc, char **argv)
 	printf("Server : %s client connected , \n ", temp);
 
 	FILE* fp;
-
 	fd = open( "/dev/ttyUSB0", O_RDWR | O_NOCTTY );
-	if(fd<0) { fprintf(stderr,"ERR\n"); exit(-1); }
+	if(fd<0) { cout << "error" << endl; return(-1); }
 	 
     memset( &newtio, 0, sizeof(newtio) );
  
  
-    newtio.c_cflag = B9600;
+    newtio.c_cflag = B57600;
     newtio.c_cflag |= CS8;
     newtio.c_cflag |= CLOCAL;
     newtio.c_cflag |= CREAD;
@@ -94,11 +94,12 @@ int main(int argc, char **argv)
 	while(1){
 	
 		while((msg_size = read(acc_sock , buffer , 1024) > 0)){
-			// cout << "Msg exists.." << endl;
+			cout << "Msg exists.." << endl;
 
 			// write(fd,buffer,10);
 			write(fd,"1",10);
-			cout << buffer <<endl;
+			buffer[0] = '\0';
+			// cout << buffer <<endl;
 			// write(acc_sock , buffer , 1024);
 			fp = fdopen(sockfd , "rw");
 			fflush(fp);
@@ -106,7 +107,7 @@ int main(int argc, char **argv)
 	}
 
 
-	printf("Server : %s client closed \n ", temp);
+	// printf("Server : %s client closed \n ", temp);
 	close(acc_sock);
 		
 	// if((strcmp(buffer," x")) != 0){

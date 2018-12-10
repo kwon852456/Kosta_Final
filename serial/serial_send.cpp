@@ -29,7 +29,7 @@ int main( void)
     memset( &newtio, 0, sizeof(newtio) );
  
  
-    newtio.c_cflag = B9600;
+    newtio.c_cflag = B57600;
     newtio.c_cflag |= CS8;
     newtio.c_cflag |= CLOCAL;
     newtio.c_cflag |= CREAD;
@@ -45,9 +45,13 @@ int main( void)
  
 sleep(3);
 int x = 0 ;
+FILE *fp;
 while(1) {
  
         write(fd, "2", 10); // 1 : turn cam to left 2: turn cam to right based on servo
+
+	fp = fdopen(fd,"wr");
+	fflush(fp);
         // i = read(fd,buf,BUF_MAX);
         // buf[i] = '\0';
         // printf("%s",buf);
