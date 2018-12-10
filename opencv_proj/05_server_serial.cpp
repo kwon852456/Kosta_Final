@@ -96,7 +96,7 @@ int main(int argc, char **argv)
 		while((msg_size = read(acc_sock , buffer , 1024) > 0)){
 			// cout << "Msg exists.." << endl;
 
-			write(fd,buffer,10);
+			// write(fd,buffer,10);
 			write(fd,"1",10);
 			cout << buffer <<endl;
 			// write(acc_sock , buffer , 1024);
