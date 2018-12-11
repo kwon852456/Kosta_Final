@@ -8,7 +8,7 @@ import threading
 import select
 
 port='/dev/ttyUSB0'  
-baudrate=9600
+baudrate=115200
 se = serial.Serial(port,baudrate)
 
 def empty_socket(sock):
@@ -23,9 +23,6 @@ def mkServSocket() :
 
     global serverSocket
 
-    port='/dev/ttyUSB0' 
-    baudrate=9600
-    se = serial.Serial(port,baudrate)
     print("conn sucessed ")
 
     HOST = '192.168.0.118'
