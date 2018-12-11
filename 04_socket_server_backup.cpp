@@ -1,4 +1,6 @@
 #include "stdio.h"
+#include <sys/ipc.h>
+#include <sys/shm.h>
 #include "stdlib.h"
 #include "string.h"
 #include "time.h"
@@ -8,9 +10,12 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <iostream>
+#include <string.h>
 
 
 #define BUF_LEN 128
+
+static char* position = 0;
 
 using namespace std;
 int main(int argc, char **argv)
@@ -21,6 +26,36 @@ int main(int argc, char **argv)
     char temp[20];
     char buffer[128];
     socklen_t addrlen = sizeof(cliaddr);
+    ////////////////////////////////////////////////////////////////////
+    
+	int shmid;
+	void *shared_memory = (void *)0;
+	// FILE *fp;
+	char buff[1024];
+	int skey = 5678;
+
+	int local_num;
+
+	shmid = shmget((key_t)skey, sizeof(int), 0666|IPC_CREAT);
+	if(shmid == -1)
+	{
+		perror("shmget failed : ");
+		exit(0);
+	}
+
+	printf("Key %x\n", skey);
+
+	shared_memory = shmat(shmid, (void *)0, 0);
+	if(!shared_memory)
+	{
+		perror("shmat failed : ");
+		exit(0);
+	}
+
+	position = (char *)shared_memory;
+
+	cout << "shared memory built" << endl;
+    //////////////////////////////////////////////////////////////////////////////////////////////////
 
     if(argc < 2)
     {
@@ -61,24 +96,20 @@ int main(int argc, char **argv)
 	FILE* fp;
 
 	while(1){
-	
-		while((msg_size = read(acc_sock , buffer , 1024) > 0)){
+		memset(position , 0x00 , 1024);
+
+		while((msg_size = read(acc_sock ,position  , 1024) > 0)){
 			// cout << "Msg exists.." << endl;
-			cout << buffer <<endl;
+			// strcpy(position , buffer);
+			// *position = *buffer;
+			cout << position << endl;
 			// write(acc_sock , buffer , 1024);
 			fp = fdopen(sockfd , "rw");
 			fflush(fp);
 		}
 	}
-
-
 	printf("Server : %s client closed \n ", temp);
 	close(acc_sock);
-		
-	// if((strcmp(buffer," x")) != 0){
-		// break;
-	// }
-
     	close(sockfd);
     return 0;
 }

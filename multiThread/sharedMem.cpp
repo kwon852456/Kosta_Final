@@ -9,7 +9,7 @@ int main()
 {
 	int shmid;
 	void *shared_memory = (void *)0;
-	FILE *fp;
+	// FILE *fp;
 	char buff[1024];
 	int skey = 5678;
 
@@ -37,17 +37,17 @@ int main()
 	for (;;)
 	{
 		local_num = 0;
-		fp = popen("ps axh", "r");
-		if(fp != NULL)
-		{
-			while(fgets(buff,1024, fp))
-			{
-				local_num++;
-			}
-		}
+		// fp = popen("ps axh", "r");
+		// if(fp != NULL)
+		// {
+			// while(fgets(buff,1024, fp))
+			// {
+				// local_num++;
+			// }
+		// }
 		*process_num = local_num;
 		printf("process_num is %d\n", (int)*process_num);
-		sleep(5);
-		pclose(fp);
+		// sleep(5);
+		// pclose(fp);
 	}
 }

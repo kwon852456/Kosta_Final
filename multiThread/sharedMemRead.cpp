@@ -30,6 +30,5 @@ int main(int argc, char **argv)
     {   
         int* num = (int *)shared_memory;
         printf("Process Num : %d\n", *num);
-        sleep(1);
     }
 }
