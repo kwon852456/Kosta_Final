@@ -1,49 +1,72 @@
+#-*- coding: utf-8 -*-
 from socket import *
 from select import select
 import sys
 import serial
 import time
 import threading
+import select
 
-port='/dev/ttyUSB0' 
+port='/dev/ttyUSB0'  
 baudrate=9600
 se = serial.Serial(port,baudrate)
-print("conn sucessed ")
 
-#  HOST = '192.168.0.106'
-#  PORT = 56789
-#  BUFSIZE = 1024
-#  ADDR = (HOST, PORT)
-#
-#  clientSocket = socket(AF_INET, SOCK_STREAM)
+def empty_socket(sock):
+    """remove the data present on the socket"""
+    input = [sock]
+    while 1:
+        inputready, o, e = select.select(input,[],[], 0.0)
+        if len(inputready)==0: break
+        for s in inputready: s.recv(1)
 
-#  try:
-    #  clientSocket.connect(ADDR)
-#
-#
-#  except Exception as e:
-    #  print("error!")
-    #  sys.exit()
+def mkServSocket() :
+
+    global serverSocket
+
+    port='/dev/ttyUSB0' 
+    baudrate=9600
+    se = serial.Serial(port,baudrate)
+    print("conn sucessed ")
+
+    HOST = '192.168.0.118'
+    PORT = 12345
+    BUFSIZE = 1024
+    ADDR = (HOST, PORT)
+
+    serverSocket = socket(AF_INET, SOCK_STREAM)
+    serverSocket.bind(ADDR)
+    serverSocket.listen(10)
+
+    clientSocket, addr_info = serverSocket.accept()
+    print("clientSocket created...")
+    return clientSocket
 
 def serialRead():
     while True :
-        print("serialRead()...")
         if se.readable():
             byteStr = se.readline()
             data = byteStr.decode()
-            date = data[:len(data)-1]
-            print("data : %s " % data)    
+            print("data from serial : %s " % data)    
 
 
-def serialWrite():
+def serialWrite(location):
     print("serialWrite()...")
-    se.write('1'.encode())
-    time.sleep(1)
+    se.write(location)
 
+BUFSIZE = 1024
+clientSocket = mkServSocket()
 readThread = threading.Thread(target=serialRead)
 readThread.start()
 while True:
-    serialWrite()
+    print("onWhile....")
+    data=clientSocket.recv(BUFSIZE)
+    empty_socket(clientSocket)
+    #  print("data from soc : %s " % data.decode())
+    #  data2 = unicode(data,'utf-8').encode('utf-8')
+    #  print("data from soc : %s " % data)
+
+    serialWrite(data)
+    print("endWhile....")
 
     #  clientSocket.send(num)
     #  data=clientSocket.recv(BUFSIZE)
