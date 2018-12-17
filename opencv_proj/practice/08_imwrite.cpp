@@ -7,7 +7,7 @@ using namespace std;
 
 int main(){
 	
-	Mat img = cv::imread("aaa.jpg");
+	Mat img = cv::imread("00.jpg");
 	
 	vector<Mat> rgbMat(3);
 	split(img, rgbMat);

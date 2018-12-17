@@ -132,9 +132,9 @@ high_hue1 = 180;
 
 	// VideoCapture cap("rtspsrc location=rtsp://192.168.0.118:8554/test latency=0 ! rtph264depay ! decodebin ! videoconvert ! video/x-raw,width=400 , height=400 , format=(string)BGR ! appsink"
 // );
-	// const char* pipe = "-v rtspsrc location=rtsp://192.168.0.118:8554/test latency=0 ! rtph264depay ! decodebin ! videoconvert ! appsink";
-	// VideoCapture cap(pipe);
-	VideoCapture cap(0);
+	const char* pipe = "-v rtspsrc location=rtsp://192.168.0.131:8554/test latency=0 ! rtph264depay ! decodebin ! videoconvert ! appsink";
+	VideoCapture cap(pipe);
+	// VideoCapture cap(0);
 
 	Mat img_frame, img_hsv , img_result;
 

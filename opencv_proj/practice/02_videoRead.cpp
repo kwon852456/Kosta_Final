@@ -6,7 +6,7 @@ using namespace cv;
 using namespace std;
 
 int main(){
-	VideoCapture capture(0);
+	VideoCapture capture("output.avi");
 	Mat frame;
 
 	//check
