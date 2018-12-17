@@ -34,11 +34,12 @@ int main(){
 	string name = path+number+s;
 
 	while(1){
+		int key = waitKey(1);
 		capture >> frame;
 		if(frame.empty())
 			break;	
 
-		if((char)waitKey(1000) == 'a'){
+		if((char)key == 'a'){
 			number = to_string(x);
 			name = path+number+s;
 			x++;
@@ -46,7 +47,7 @@ int main(){
 		}		
 		// outVideo.write(frame);
 		imshow("w",frame);
-		if(waitKey(10) > 0)
+		if(key == 27)
 			break;
 	}
     return 0;
