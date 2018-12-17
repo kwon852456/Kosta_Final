@@ -44,6 +44,7 @@ int main(){
 			name = path+number+s;
 			x++;
 			imwrite(name , frame);
+			imshow("w",frame);
 		}		
 		// outVideo.write(frame);
 		imshow("w",frame);
